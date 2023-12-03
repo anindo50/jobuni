@@ -113,44 +113,5 @@
         </form>
         
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        const successCallback = (position) => {
-            console.log(position);
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            console.log("Latitude: " + latitude);
-            console.log("Longitude: " + longitude);
-
-            
-            // Send an AJAX request to your Django backend
-            $.ajax({
-              url: "/test2/",  
-              method: "POST",
-              headers: {
-                "X-CSRFToken": document.cookie.match(/csrftoken=([^ ;]+)/)[1]
-              },
-              data: {
-                latitude: latitude,
-                longitude: longitude
-              },
-              success: function(response) {
-                console.log("Location sent successfully");
-                // Handle the response from the server if needed
-              },
-              error: function(xhr, status, error) {
-                console.log("Error sending location:", error);
-                // Handle the error if needed
-              }
-            });
-          };
-          
-          const errorCallback = (error) => {
-            console.log(error);
-          };
-          
-          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    </script>
 </body>
 </html>

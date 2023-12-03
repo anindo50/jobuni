@@ -534,8 +534,9 @@ def test(request):
             for obj in data:
                 print(obj.occupation)
                 print(occ)
-                if occ.lower() == obj.occupation.lower() :
+                if occ == obj.occupation:
                     if lat and lon:
+                        print(lat,lon)
                         distance = calculate_distance_between_points(latitude,longitude,lat,lon)
                         print(distance)
                         if (distance <=3 or distance <=10 or distance <=15) and (email != email):
