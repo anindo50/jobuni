@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: #65a12f;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #profile {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #profile img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        #profile h1 {
+            font-size: 24px;
+        }
+
+        #profile p {
+            font-size: 16px;
+        }
+
+        #profile a {
+            color: #65a12f;
+            text-decoration: none;
+        }
+
+        #footer {
+            background-color: #65a12f;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        #blue-light {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: rgb(89, 158, 236);
+            border-radius: 50%;
+            animation: blink 1s ease infinite;
+        }
+
+        .inactive #blue-light {
+            animation: none; /* No animation for inactive status */
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <form>
+        <div id="header">
+            <h1>My Profile</h1>
+        </div>
+    
+        <div id="profile">
+            <img src="https://via.placeholder.com/150" alt="Profile Picture">
+            <h1>
+                <div class="{% if data.active %}active{% else %}inactive{% endif %}" id="blue-light"></div>
+                {{ data.name }}
+            </h1>
+            <p>{{ data.address }}</p>
+            <p>{{ data.mobile }}</p>
+            <p>{{ data.occupation }}</p>
+            
+            <!-- <p>edit profile: <a href="/edit" target="_blank">edit profile</a></p> -->
+            <a href="/edit">Edit profile</a><br>
+            {% if login_type == "custom" %}
+                <a href="/search">search people</a><br>
+            {% endif %}
+            <a href="/logout">Logout</a><br>
+        </div>
+    
+        <div id="footer">
+            &copy;My Profile
+        </div>
+        
+        </form>
+        
+    </div>
+</body>
+</html>

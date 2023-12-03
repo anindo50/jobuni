@@ -1,0 +1,102 @@
+/* Footer css */
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+  .layout {
+      background-color: #001e00;
+      height: 520px;
+      margin: 20px;
+      border-radius: 25px;
+  }
+  
+  
+  
+  .footer-col {
+      font-size: 14px;
+      padding-top: 60px;
+    }
+    
+  .footer-col h5 {
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: white;
+    }
+    
+  .footer-col ul li {
+      margin-bottom: 12px;
+    }
+    
+  .footer-col ul li a {
+      color: white;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    
+  .footer-col ul li a:hover {
+      color: #0f9d58;
+    }
+  .mid-footer-col {
+    color: white;
+  }
+  
+  .footer-col ul li a i.fab.fa-facebook {
+    font-size: 24px;
+    color: #3b5998;
+    margin-right: 8px;
+   
+  }
+  
+  .footer-col ul li a i.fab.fa-instagram {
+    font-size: 24px;
+    color: #e4405f;
+    margin-right: 8px;
+  }
+  
+  .footer-col ul li a i.fab.fa-twitter {
+    font-size: 24px;
+    color: #1da1f2;
+    margin-right: 8px;
+  }
+  
+  
+  .mid-footer-col {
+    color: white;
+    padding-top: 20px;
+  }
+  
+  
+  
+  .mid-footer-col label {
+    margin: 0 10px; 
+  }
+  
+  .download-item {
+    padding-left: 600px;
+  }
+  
+  .down-footer-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .down-footer-col label {
+    margin-right: 10px;
+    font-size: 14px;
+    color: white;
+  }
+  
+  .down-footer-col a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .down-footer-col a:hover {
+    color: #666;
+  }
+  

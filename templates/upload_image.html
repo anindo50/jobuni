@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-field {
+            margin-bottom: 20px;
+        }
+
+        .upload-field label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .upload-field input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .upload-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>File Upload Page</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="upload-field">
+                <label for="file1">Upload File 1:</label>
+                <input type="file" id="file1" name="file1" accept=".jpg, .jpeg, .png, .pdf">
+            </div>
+
+            <div class="upload-field">
+                <label for="file2">Upload File 2:</label>
+                <input type="file" id="file2" name="file2" accept=".jpg, .jpeg, .png, .pdf">
+            </div>
+
+            <div class="upload-field">
+                <label for="file3">Upload File 3:</label>
+                <input type="file" id="file3" name="file3" accept=".jpg, .jpeg, .png, .pdf">
+            </div>
+
+            <div class="upload-field">
+                <label for="file4">Upload File 4:</label>
+                <input type="file" id="file4" name="file4" accept=".jpg, .jpeg, .png, .pdf">
+            </div>
+
+            <div class="upload-field">
+                <label for="file5">Upload File 5:</label>
+                <input type="file" id="file5" name="file5" accept=".jpg, .jpeg, .png, .pdf">
+            </div>
+
+            <div class="upload-field">
+                <label for="file6">Upload File 6:</label>
+                <input type="file" id="file6" name="file6" accept=".jpg, .jpeg, .png, .pdf">
+            </div>
+
+
+            <button class="upload-button">Upload Files</button>
+        </form>
+    </div>
+</body>
+</html>

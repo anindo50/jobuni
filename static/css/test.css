@@ -1,0 +1,24 @@
+.navbar {
+    background-color: transparent;
+    border: none;
+}
+
+.nav-link {
+    color: black;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #7ac142;
+}
+
+.btn-outline-success {
+    border-color: #7ac142;
+    color: #7ac142;
+    font-weight: bold;
+}
+
+.btn-outline-success:hover {
+    background-color: #7ac142;
+    color: white;
+}

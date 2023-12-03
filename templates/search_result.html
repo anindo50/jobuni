@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+
+    <div id="resultsContainer"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Get user's current location
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+            function successCallback(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                $("#resultsContainer").html("<p>Searching for results...</p>");
+
+                // Send AJAX request to Django view
+                $.ajax({
+                    url: "{% url 'search_result' %}",
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: {
+                        latitude: latitude,
+                        longitude: longitude
+                    },
+                    success: function(response) {
+                        displayResults(response.results);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            function errorCallback(error) {
+                console.error("Error getting user's location:", error);
+            }
+
+            function displayResults(results) {
+                var resultsContainer = $("#resultsContainer");
+                resultsContainer.empty();
+
+                if (results.length === 0) {
+                    resultsContainer.append("<p>No results found.</p>");
+                    return;
+                }
+
+                for (var i = 0; i < results.length; i++) {
+                    var result = results[i];
+
+                    var resultHtml = "<div>";
+                    resultHtml += "<h3>Name: " + result.name + "</h3>";
+                    resultHtml += "<p>Occupation: " + result.occupation + "</p>";
+                    resultHtml += "<p>Phone Number: " + result.mobile + "</p>";
+                    // Add more fields as needed
+
+                    resultHtml += "</div>";
+
+                    resultsContainer.append(resultHtml);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

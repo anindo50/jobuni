@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div>
+        <form action="" method='Post'>
+            {% csrf_token %}
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="Enter your email"/>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password"/>
+        <input type="submit" value="Sign In"/>
+        
+        </form>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            const successCallback = (position) => {
+                console.log(position);
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                console.log("Latitude: " + latitude);
+                console.log("Longitude: " + longitude);
+    
+                
+                // Send an AJAX request to your Django backend
+                $.ajax({
+                  url: "/login/",  
+                  method: "POST",
+                  headers: {
+                    "X-CSRFToken": document.cookie.match(/csrftoken=([^ ;]+)/)[1]
+                  },
+                  data: {
+                    latitude: latitude,
+                    longitude: longitude
+                  },
+                  success: function(response) {
+                    console.log("Location sent successfully");
+                    // Handle the response from the server if needed
+                  },
+                  error: function(xhr, status, error) {
+                    console.log("Error sending location:", error);
+                    // Handle the error if needed
+                  }
+                });
+              };
+              
+              const errorCallback = (error) => {
+                console.log(error);
+              };
+              
+              navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+        </script>
+    </div>
+</body>
+</html>

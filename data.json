@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Intishar rahman",
+        "email": "ssanindo50@gmail.com",
+        "password": "1234m",
+        "address": "dhaka",
+        "mobile": "01682334129",
+        "birthday": "2023-07-14",
+        "occupation": "1",
+        "active": false
+    },
+    {
+        "name": "Intishar rahman",
+        "email": "intishar.anindo@gmail.com",
+        "password": "1234m",
+        "address": "dhaka",
+        "mobile": "01682334129",
+        "birthday": "2023-07-08",
+        "occupation": "1",
+        "active": false
+    }
+]

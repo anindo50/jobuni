@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="Post" onsubmit="return validation()">
+        {% csrf_token %}
+        <label for="name">Full Name:</label>
+        <input type="text" id="fname" name="fname" placeholder="Enter your Full Name" />
+        {% if name_error %}
+        <p class="error">{{ name_error }}</p>
+        {% endif %}
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" />
+        {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+        {% endif %}
+        {% if exist_email_message %}
+        <p class="error">{{ exist_email_message }}</p>
+        {% endif %}
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" />
+        {% if pass_error %}
+        <p class="error">{{ pass_error }}</p>
+        {% endif %}
+
+        <label for="mobile">Mobile:</label>
+        <input type="text" id="mobile" name="mobile" placeholder="Enter your mobile number" />
+        <p id="mber"></p>
+
+
+        <label>
+            Enter your birthday:
+            <input type="date" name="bday" required pattern="\d{4}-\d{2}-\d{2}" />
+            <span class="validity"></span>
+        </label>
+
+
+
+       <label>Occupation:</label>
+        
+        <input type="radio" id="oc" name="Occupation" value="Business" />  Business <br/>
+        
+        <input type="radio"  name="Occupation" value="Govt. Service" />  Govt. Service <br/>
+
+        <input type="radio"  name="Occupation" value="Private Service" />  Private Service <br/>
+        
+        <input type="radio"  name="Occupation" value="Worker" />  Worker <br/>
+
+        <input type="radio" name= "Occupation" value="Technician" /> Technician <br/>
+        
+        <input type="radio"  name="Occupation" value="Student" />  Student <br/>
+        
+        <input type="radio"  name="Occupation" value="House Wife" />  House Wife <br/>
+
+        <input type="radio"  name="Occupation" value="Artist" />  Artist <br/>
+
+        <a href="https://www.google.com"><input type="radio"  name="Occupation" value="Rider" />  Rider </a> <br/>
+
+
+
+        <label for="address">Address:</label> 
+        <textarea rows="4" cols="50"  id="address" name="address" placeholder="Enter your address" required >
+
+        </textarea><br/>
+
+        <input type="checkbox" id="agree" name="agree" required />
+        <label for="agree"> You Agree to our terms Data Policy</label><br></br>
+        <Link to="/form">
+        <input type="submit" value="Sign Up" />
+        </Link>
+
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        const successCallback = (position) => {
+            console.log(position);
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            console.log("Latitude: " + latitude);
+            console.log("Longitude: " + longitude);
+
+            
+            // Send an AJAX request to your Django backend
+            $.ajax({
+              url: "/seller/",  
+              method: "GET",
+              headers: {
+                "X-CSRFToken": document.cookie.match(/csrftoken=([^ ;]+)/)[1]
+              },
+              data: {
+                latitude: latitude,
+                longitude: longitude
+              },
+              success: function(response) {
+                console.log("Location sent successfully");
+                // Handle the response from the server if needed
+              },
+              error: function(xhr, status, error) {
+                console.log("Error sending location:", error);
+                // Handle the error if needed
+              }
+            });
+          };
+          
+          const errorCallback = (error) => {
+            console.log(error);
+          };
+          
+          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    </script>
+</body>
+</html>
