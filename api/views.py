@@ -33,6 +33,12 @@ def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
+        lat = float(request.POST.get('latitude'))
+        lon = float(request.POST.get('longitude'))
+        if lat and lon is not None:
+            request.session["user_lat"] = lat
+            request.session["user_lon"] = lon
+            print('login lat lon',lat,lon)
 
         all_data = custom.objects.all()
 
@@ -52,7 +58,7 @@ def login(request):
                 request.session['email'] = email
                 request.session['login_type'] = "custom"
                 obj.active = True
-                obj.save() 
+                obj.save()
                 return redirect('profile')
                 
         
@@ -516,49 +522,90 @@ def calculate_distance_between_points(lat1, lon1, lat2, lon2):
     return distance
 
 
-def test(request):
-    lat = request.session.get('latitude')
-    lon = request.session.get('longitude')
-    email = request.session.get('email')
-    content = {}
-    if email:
-        if request.method == "POST":
-            latitude = request.POST.get("latitude")
-            longitude = request.POST.get("longitude")
-            occ = request.POST.get('occupation')
-            match_profile = {}
+# def test(request):
+#     lat = request.session.get('latitude')
+#     lon = request.session.get('longitude')
+#     email = request.session.get('email')
+#     content = {}
+#     if email:
+#         if request.method == "POST":
+#             latitude = request.POST.get("latitude")
+#             longitude = request.POST.get("longitude")
+#             occ = request.POST.get('occupation')
+#             match_profile = {}
     
-            # with open('sell.json', 'r') as outfile:
-            #     data = json.load(outfile)
-            data = sell.objects.all()
-            for obj in data:
-                print(obj.occupation)
-                print(occ)
-                if occ == obj.occupation:
-                    if lat and lon:
-                        print(lat,lon)
-                        distance = calculate_distance_between_points(latitude,longitude,lat,lon)
-                        print(distance)
-                        if (distance <=3 or distance <=10 or distance <=15) and (email != email):
-                            if obj.email==email:
-                                em = obj.email
-                                phn = obj.mobile
-                                occu = obj.occupation
-                                match_profile["em"] = em
-                                match_profile["phn"] = phn
-                                match_profile["occu"] = occu
-                                print("match",match_profile)
-                    if match_profile is not None:
+#             # with open('sell.json', 'r') as outfile:
+#             #     data = json.load(outfile)
+#             data = sell.objects.all()
+#             for obj in data:
+#                 print(obj.occupation)
+#                 print(occ)
+#                 if occ == obj.occupation:
+#                     if lat and lon:
+#                         print(lat,lon)
+#                         distance = calculate_distance_between_points(latitude,longitude,lat,lon)
+#                         print(distance)
+#                         if (distance <=3 or distance <=10 or distance <=15) and (email != email):
+#                             if obj.email==email:
+#                                 em = obj.email
+#                                 phn = obj.mobile
+#                                 occu = obj.occupation
+#                                 match_profile["em"] = em
+#                                 match_profile["phn"] = phn
+#                                 match_profile["occu"] = occu
+#                                 print("match",match_profile)
+#                     if match_profile is not None:
                 
 
-                        content = {
-                        "data":match_profile
-                        }
-                    else:
-                        return HttpResponse("no user is here")
+#                         content = {
+#                         "data":match_profile
+#                         }
+#                     else:
+#                         return HttpResponse("no user is here")
             
-        return render(request,'test.html',content)
-    return HttpResponse("no user is here")
+#         return render(request,'test.html',content)
+#     return HttpResponse("no user is here")
+
+def test(request):
+    lat = float(request.session.get('latitude'))
+    lon = float(request.session.get('longitude'))
+    email = request.session.get('email')
+    content = {}
+    
+    if email:
+        if request.method == "POST":
+            latitude = float(request.session.get('user_lat'))
+            longitude = float(request.session.get('user_lon'))
+            print("first",latitude,longitude)
+            print(type(latitude), type(longitude), type(lat), type(lon))
+            occ = request.POST.get('occupation')
+            match_profiles = []
+            
+            data = sell.objects.all()  # Assuming your model name is Sell
+            
+            for obj in data:
+                if occ == obj.occupation:
+                    if type(lat) and type(lon) and type(latitude) and type(longitude) == float:
+                        distance = calculate_distance_between_points(latitude, longitude, lat, lon)
+                        if 3 <= distance <= 15 and obj.email != email:
+                            match_profile = {
+                                "em": obj.email,
+                                "phn": obj.mobile,
+                                "occu": obj.occupation
+                            }
+                            match_profiles.append(match_profile)
+                    else:
+                        print("One or more coordinates are missing.")
+                        print(latitude, longitude, lat, lon)
+            
+            if match_profiles:
+                content = {"data": match_profiles}
+            else:
+                return HttpResponse("No matching users found.")
+            
+        return render(request, 'test.html', content)
+    
+    return HttpResponse("No user is here.")
     
 
     
