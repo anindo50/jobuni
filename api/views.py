@@ -585,9 +585,9 @@ def test(request):
             
             for obj in data:
                 if occ == obj.occupation:
-                    if type(lat) and type(lon) and type(latitude) and type(longitude) == float:
+                    if lat and lon and latitude and longitude is not None:
                         distance = calculate_distance_between_points(latitude, longitude, lat, lon)
-                        if 3 <= distance <= 15 and obj.email != email:
+                        if distance <= 3:
                             match_profile = {
                                 "em": obj.email,
                                 "phn": obj.mobile,
